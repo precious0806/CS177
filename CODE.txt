@@ -1,0 +1,126 @@
+do {
+		
+	int width, height;
+		
+	// Get window size (may be different than the requested size)
+		
+	//we do this every frame to accommodate window resizing.
+		
+	glfwGetWindowSize( &width, &height );
+		
+	glViewport( 0, 0, width, height );
+
+		
+	glClear(GL_COLOR_BUFFER_BIT);
+		
+		
+	//glDrawArrays(GL_TRIANGLE_FAN, 0, nVertices);
+		
+	glBegin(GL_TRIANGLE_FAN);
+		
+	double pi = 3.14;
+		
+	double radius = 0.50;
+		
+	GLfloat x = 0; 
+		
+	GLfloat y = 0; 
+		
+	GLfloat z = 1;
+		
+	glBegin(GL_TRIANGLE_FAN);
+		
+	glVertex3f(x, y, z);
+		
+	for(double angle = 0; angle <= 2*pi; angle += 2*pi*radius/100)
+		
+	{
+			
+		glVertex3f(x + sin(angle)*radius, y + cos(angle)*radius, z);
+		
+	}
+		
+	glEnd();
+		
+		
+	glBegin(GL_TRIANGLE_FAN);
+		
+	double pi2 = 3.14;
+		
+	double radius2 = 0.50;
+		
+	GLfloat x2 = 0; 
+		
+	GLfloat y2 = 0; 
+		
+	GLfloat z2 = -1;
+		
+	glBegin(GL_TRIANGLE_FAN);
+		
+	glVertex3f(x2, y2, z2);
+		
+	for(double angle2 = 0; angle2 >= -1*2*pi; angle2 -= 2*pi*radius/100)
+		
+	{
+			
+		glVertex3f(x2 + sin(angle2)*radius, y2 + cos(angle2)*radius, z2);
+		
+	}
+		
+	glEnd();
+
+		
+	glBegin(GL_TRIANGLE_STRIP);
+		
+	double pi3 = 3.14;
+		
+	double radius3 = 0.50;
+		GLfloat x3 =0;
+		
+	GLfloat y3 = 0;
+		GLfloat z3 = 0;
+		
+	int counter = 1;
+		glBegin(GL_TRIANGLE_STRIP);
+		
+	glVertex3f(x3, y3, z3);
+		
+	for (double angle3 = 0; angle3 <= 2*pi; angle3 = 2*pi*radius/100)
+		
+	{
+			
+		if (counter%2 >= 1)
+			
+		{
+				
+			z3 = 1;
+			
+		}
+			
+		else 
+			
+		{
+				
+			z3 = -1;
+			
+		}
+			
+		glVertex3f(x3 + sin(angle3)*radius, y3 + cos(angle3)*radius, z3);
+		
+	}
+		
+	glEnd();
+
+		
+	//VERY IMPORTANT: displays the buffer to the screen
+		
+	glfwSwapBuffers();
+	
+	} while ( glfwGetKey(GLFW_KEY_ESC) != GLFW_PRESS &&
+			
+	glfwGetWindowParam(GLFW_OPENED) );
+
+	
+	glfwTerminate();
+	
+	return 0;
